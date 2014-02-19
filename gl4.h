@@ -8,8 +8,14 @@
 // The wrappers are intentionally "leaky" in that they don't use private
 // variables so you can implement functionality that they don't have if needed.
 
+#ifdef __APPLE__
+#include <OpenGL/gl3.h>
+#include <OpenGL/glext.h>
+#else
 #include <GL/gl.h>
 #include <GL/glu.h>
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <ostream>
@@ -28,63 +34,63 @@
 
 // Forward declarations for new functions in case they aren't defined.
 extern "C" {
-    void glUseProgram(GLuint program);
-    void glGenFramebuffers(GLsizei n, GLuint *ids);
-    void glGenRenderbuffers(GLsizei n, GLuint *ids);
-    void glBindFramebuffer(GLenum target, GLuint framebuffer);
-    void glBindRenderbuffer(GLenum target, GLuint renderbuffer);
-    void glRenderbufferStorage(GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
-    void glFramebufferRenderbuffer(GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
-    void glFramebufferTexture2D(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
-    void glFramebufferTexture3D(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint layer);
-    void glDeleteProgram(GLuint program);
-    void glDeleteShader(GLuint shader);
-    void glShaderSource(GLuint shader, GLsizei count, const GLchar **string, const GLint *length);
-    void glAttachShader(GLuint program, GLuint shader);
-    void glLinkProgram(GLuint program);
-    void glCompileShader(GLuint shader);
-    void glGetShaderInfoLog(GLuint shader, GLsizei maxLength, GLsizei *length, GLchar *infoLog);
-    void glGetProgramInfoLog(GLuint program, GLsizei maxLength, GLsizei *length, GLchar *infoLog);
-    void glGenBuffers(GLsizei n, GLuint *buffers);
-    void glDeleteBuffers(GLsizei n, const GLuint *buffers);
-    void glBindBuffer(GLenum target, GLuint buffer);
-    void glBufferData(GLenum target, GLsizeiptr size, const GLvoid *data, GLenum usage);
-    void glGenVertexArrays(GLsizei n, GLuint *arrays);
-    void glDeleteVertexArrays(GLsizei n, const GLuint *arrays);
-    void glBindVertexArray(GLuint array);
-    void glDrawArraysInstanced(GLenum mode, GLint first, GLsizei count, GLsizei primcount);
-    void glDrawElementsInstanced(GLenum mode, GLsizei count, GLenum type, const void *indices, GLsizei primcount);
-    void glEnableVertexAttribArray(GLuint index);
-    void glDisableVertexAttribArray(GLuint index);
-    void glBindAttribLocation(GLuint program, GLuint index, const GLchar *name);
-    void glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid *pointer);
-    void glDeleteFramebuffers(GLsizei n, GLuint *framebuffers);
-    void glDeleteRenderbuffers(GLsizei n, GLuint *renderbuffers);
-    void glDrawBuffers(GLsizei n, const GLenum *bufs);
-    void glUniform1i(GLint location, GLint v0);
-    void glUniform2i(GLint location, GLint v0, GLint v1);
-    void glUniform3i(GLint location, GLint v0, GLint v1, GLint v2);
-    void glUniform4i(GLint location, GLint v0, GLint v1, GLint v2, GLint v3);
-    void glUniform1f(GLint location, GLfloat v0);
-    void glUniform2f(GLint location, GLfloat v0, GLfloat v1);
-    void glUniform3f(GLint location, GLfloat v0, GLfloat v1, GLfloat v2);
-    void glUniform4f(GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
-    void glUniform1fv(GLint location, GLsizei count, const GLfloat *value);
-    void glUniform2fv(GLint location, GLsizei count, const GLfloat *value);
-    void glUniform3fv(GLint location, GLsizei count, const GLfloat *value);
-    void glUniform4fv(GLint location, GLsizei count, const GLfloat *value);
-    void glUniform1iv(GLint location, GLsizei count, const GLint *value);
-    void glUniform2iv(GLint location, GLsizei count, const GLint *value);
-    void glUniform3iv(GLint location, GLsizei count, const GLint *value);
-    void glUniform4iv(GLint location, GLsizei count, const GLint *value);
-    void glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value);
-    void glPatchParameteri(GLenum pname, GLint value);
-    void glPatchParameterfv(GLenum pname, const GLfloat *values);
-    GLuint glCreateShader(GLenum shaderType);
-    GLuint glCreateProgram();
-    GLuint glCheckFramebufferStatus(GLenum target);
-    GLuint glGetAttribLocation(GLuint program, const GLchar *name);
-    GLuint glGetUniformLocation(GLuint program, const GLchar *name);
+    /* void glUseProgram(GLuint program); */
+    /* void glGenFramebuffers(GLsizei n, GLuint *ids); */
+    /* void glGenRenderbuffers(GLsizei n, GLuint *ids); */
+    /* void glBindFramebuffer(GLenum target, GLuint framebuffer); */
+    /* void glBindRenderbuffer(GLenum target, GLuint renderbuffer); */
+    /* void glRenderbufferStorage(GLenum target, GLenum internalformat, GLsizei width, GLsizei height); */
+    /* void glFramebufferRenderbuffer(GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer); */
+    /* void glFramebufferTexture2D(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level); */
+    /* void glFramebufferTexture3D(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint layer); */
+    /* void glDeleteProgram(GLuint program); */
+    /* void glDeleteShader(GLuint shader); */
+    /* void glShaderSource(GLuint shader, GLsizei count, const GLchar **string, const GLint *length); */
+    /* void glAttachShader(GLuint program, GLuint shader); */
+    /* void glLinkProgram(GLuint program); */
+    /* void glCompileShader(GLuint shader); */
+    /* void glGetShaderInfoLog(GLuint shader, GLsizei maxLength, GLsizei *length, GLchar *infoLog); */
+    /* void glGetProgramInfoLog(GLuint program, GLsizei maxLength, GLsizei *length, GLchar *infoLog); */
+    /* void glGenBuffers(GLsizei n, GLuint *buffers); */
+    /* void glDeleteBuffers(GLsizei n, const GLuint *buffers); */
+    /* void glBindBuffer(GLenum target, GLuint buffer); */
+    /* void glBufferData(GLenum target, GLsizeiptr size, const GLvoid *data, GLenum usage); */
+    /* void glGenVertexArrays(GLsizei n, GLuint *arrays); */
+    /* void glDeleteVertexArrays(GLsizei n, const GLuint *arrays); */
+    /* void glBindVertexArray(GLuint array); */
+    /* void glDrawArraysInstanced(GLenum mode, GLint first, GLsizei count, GLsizei primcount); */
+    /* void glDrawElementsInstanced(GLenum mode, GLsizei count, GLenum type, const void *indices, GLsizei primcount); */
+    /* void glEnableVertexAttribArray(GLuint index); */
+    /* void glDisableVertexAttribArray(GLuint index); */
+    /* void glBindAttribLocation(GLuint program, GLuint index, const GLchar *name); */
+    /* void glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid *pointer); */
+    /* void glDeleteFramebuffers(GLsizei n, GLuint *framebuffers); */
+    /* void glDeleteRenderbuffers(GLsizei n, GLuint *renderbuffers); */
+    /* void glDrawBuffers(GLsizei n, const GLenum *bufs); */
+    /* void glUniform1i(GLint location, GLint v0); */
+    /* void glUniform2i(GLint location, GLint v0, GLint v1); */
+    /* void glUniform3i(GLint location, GLint v0, GLint v1, GLint v2); */
+    /* void glUniform4i(GLint location, GLint v0, GLint v1, GLint v2, GLint v3); */
+    /* void glUniform1f(GLint location, GLfloat v0); */
+    /* void glUniform2f(GLint location, GLfloat v0, GLfloat v1); */
+    /* void glUniform3f(GLint location, GLfloat v0, GLfloat v1, GLfloat v2); */
+    /* void glUniform4f(GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3); */
+    /* void glUniform1fv(GLint location, GLsizei count, const GLfloat *value); */
+    /* void glUniform2fv(GLint location, GLsizei count, const GLfloat *value); */
+    /* void glUniform3fv(GLint location, GLsizei count, const GLfloat *value); */
+    /* void glUniform4fv(GLint location, GLsizei count, const GLfloat *value); */
+    /* void glUniform1iv(GLint location, GLsizei count, const GLint *value); */
+    /* void glUniform2iv(GLint location, GLsizei count, const GLint *value); */
+    /* void glUniform3iv(GLint location, GLsizei count, const GLint *value); */
+    /* void glUniform4iv(GLint location, GLsizei count, const GLint *value); */
+    /* void glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value); */
+    /* void glPatchParameteri(GLenum pname, GLint value); */
+    /* void glPatchParameterfv(GLenum pname, const GLfloat *values); */
+    /* GLuint glCreateShader(GLenum shaderType); */
+    /* GLuint glCreateProgram(); */
+    /* GLuint glCheckFramebufferStatus(GLenum target); */
+    /* GLuint glGetAttribLocation(GLuint program, const GLchar *name); */
+    /* GLuint glGetUniformLocation(GLuint program, const GLchar *name); */
 }
 
 struct vec2 {
@@ -394,7 +400,7 @@ struct FBO {
 };
 
 // Use this macro to pass raw GLSL to Shader::shader()
-#define glsl(x) "#version 400\n" #x
+#define glsl(x) "#version 410\n" #x
 
 // Wraps a GLSL shader program and all attached shader stages. Meant to be used
 // with the glsl() macro.

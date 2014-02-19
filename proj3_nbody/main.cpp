@@ -1,4 +1,9 @@
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
 #include <GL/glut.h>
+#endif
+
 #include "gl4.h"
 
 enum PostProcess {
@@ -360,7 +365,7 @@ void resize(int w, int h) {
 
 int main(int argc, char *argv[]) {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitDisplayMode(GLUT_3_2_CORE_PROFILE | GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutCreateWindow("Example");
     glutReshapeWindow(width, height);
     glutDisplayFunc(draw);

@@ -1,4 +1,9 @@
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
 #include <GL/glut.h>
+#endif
+
 #include "gl4.h"
 
 float width = 0, height = 0;
@@ -253,7 +258,7 @@ void resize(int w, int h) {
 int main(int argc, char *argv[]) {
     enum { WIDTH = 800, HEIGHT = 600 };
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH | GLUT_MULTISAMPLE);
+    glutInitDisplayMode(GLUT_3_2_CORE_PROFILE | GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutCreateWindow("cs195v - life");
     glutReshapeWindow(WIDTH, HEIGHT);
     glutDisplayFunc(draw);

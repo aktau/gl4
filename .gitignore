@@ -1,3 +1,9 @@
 .DS_Store
 a.out
 *.o
+
+# executables
+tess
+nbody
+life3d
+fluid

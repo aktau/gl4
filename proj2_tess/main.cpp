@@ -1,4 +1,9 @@
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
 #include <GL/glut.h>
+#endif
+
 #include "gl4.h"
 
 float width = 800, height = 600;
@@ -23,10 +28,10 @@ void setup() {
         uniform vec3 eye;
         in vec3 vertex;
         out vec3 vPosition;
-        out float distance;
+        //out float distancel;
         void main() {
             vPosition = vertex;
-            distance = length(vPosition - eye);
+            //distancel = length(vPosition - eye);
         }
     )).tessControlShader(glsl(
         uniform mat4 matrix;
@@ -34,10 +39,10 @@ void setup() {
         uniform float maxTessLevel;
         layout(vertices=4) out;
         in vec3 vPosition[];
-        in float distance[];
+        in float distancel[];
         out vec3 tcPosition[];
-        float tessLevel(float distance) {
-            return maxTessLevel / (1.0 + distance);
+        float tessLevel(float distancel) {
+            return maxTessLevel / (1.0 + distancel);
         }
         void main() {
             // Wrap patch to always be centered around the eye
@@ -541,7 +546,8 @@ void resize(int w, int h) {
 
 int main(int argc, char *argv[]) {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    /* glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH); */
+    glutInitDisplayMode(GLUT_3_2_CORE_PROFILE | GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutCreateWindow("Example");
     glutReshapeWindow(width, height);
     glutDisplayFunc(draw);
